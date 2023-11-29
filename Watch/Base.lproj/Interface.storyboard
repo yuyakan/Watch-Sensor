@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="20037" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch38"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="20006"/>
+    </dependencies>
+    <scenes>
+        <!--Interface Controller-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Watch" customModuleProvider="target">
+                    <items>
+                        <label width="136" height="73" alignment="center" text="0.00" textAlignment="left" baselineAdjustment="alignCenters" id="fXM-4G-YWO">
+                            <fontDescription key="font" type="system" pointSize="42"/>
+                        </label>
+                        <button width="1" alignment="left" title="Start" id="XPc-G5-88T">
+                            <connections>
+                                <action selector="StartButton" destination="AgC-eL-Hgc" id="wOk-62-zkA"/>
+                            </connections>
+                        </button>
+                        <button width="1" alignment="left" title="Stop" id="rv2-Mp-CTv">
+                            <connections>
+                                <action selector="StopButton" destination="AgC-eL-Hgc" id="YtI-KL-Tcg"/>
+                            </connections>
+                        </button>
+                        <button width="1" alignment="left" title="Save" id="uEc-Tg-YUd">
+                            <connections>
+                                <action selector="SaveButton" destination="AgC-eL-Hgc" id="dfV-qk-rt9"/>
+                            </connections>
+                        </button>
+                    </items>
+                    <connections>
+                        <outlet property="SaveButtonOutlet" destination="uEc-Tg-YUd" id="jKf-Td-YyM"/>
+                        <outlet property="StartButtonOutlet" destination="XPc-G5-88T" id="ZS9-wd-dtq"/>
+                        <outlet property="StopButtonOutlet" destination="rv2-Mp-CTv" id="mWw-0L-Vqi"/>
+                        <outlet property="TimeLabel" destination="fXM-4G-YWO" id="cbf-Zr-BBu"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="220" y="357"/>
+        </scene>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="AEw-b0-oYE">
+            <objects>
+                <notificationController id="YCC-NB-fut">
+                    <items>
+                        <label alignment="left" text="Alert Label" numberOfLines="0" id="IdU-wH-bcW"/>
+                    </items>
+                    <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="IdU-wH-bcW" id="JKC-fr-R95"/>
+                        <segue destination="4sK-HA-Art" kind="relationship" relationship="dynamicNotificationInterface" id="kXh-Jw-8B1"/>
+                        <segue destination="eXb-UN-Cd0" kind="relationship" relationship="dynamicInteractiveNotificationInterface" id="mpB-YA-K8N"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="220" y="643"/>
+        </scene>
+        <!--Notification Controller-->
+        <scene sceneID="ZPc-GJ-vnh">
+            <objects>
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Watch" customModuleProvider="target"/>
+            </objects>
+            <point key="canvasLocation" x="468" y="643"/>
+        </scene>
+        <!--Notification Controller-->
+        <scene sceneID="Niz-AI-uX2">
+            <objects>
+                <controller id="eXb-UN-Cd0" customClass="NotificationController" customModule="Watch" customModuleProvider="target"/>
+            </objects>
+            <point key="canvasLocation" x="468" y="345"/>
+        </scene>
+    </scenes>
+</document>
