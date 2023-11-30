@@ -13,16 +13,12 @@ protocol GetSensorModelPrivateProtocol {
 }
 
 final public class GetSenorModel {
-    @Published var displyTime = "0.00"
+    @Published var displayTime = "0.00"
     var nowTime: Double = 0.0
-    
     let motionManager = CMMotionManager()
     let queue = OperationQueue()
-
     public static let shared = GetSenorModel()
     private init() {}
-    
-    
     
     var dataLog = allData(timeStamp: [], accelerationData: sensorData(name: "acceleration", X: [], Y: [], Z: []),
                           rotationData:sensorData(name: "rotation", X: [], Y: [], Z: []),
@@ -73,7 +69,7 @@ final public class GetSenorModel {
         }
      
         let elapsedTime = time - nowTime
-        displyTime = String(format: "%.2f", elapsedTime)
+        displayTime = String(format: "%.2f", elapsedTime)
         dataLog.timeStamp.append(elapsedTime)
     }
     

@@ -40,9 +40,8 @@ class SendFileWCSession: NSObject, WCSessionDelegate {
         
         let isMotionFileSended = sendMotionFile(directoryName: directoryName)
         let isGpsFileSended = sendGpsFile(directoryName: directoryName)
-        let isGravityAndAttitudeFileSended = sendGravityAndAttitudeFile(directoryName: directoryName)
         
-        return isMotionFileSended && isGpsFileSended && isGravityAndAttitudeFileSended
+        return isMotionFileSended && isGpsFileSended
     }
     
     private func makeDirName(date: Date) -> String {
@@ -63,7 +62,6 @@ class SendFileWCSession: NSObject, WCSessionDelegate {
         
         do {
             try csv.write(to: url, atomically: true, encoding: String.Encoding.utf8)
-//            WCSession.default.transferFile(url, metadata: message)
             session.transferFile(url, metadata: message)
             print(url)
         } catch {
@@ -84,26 +82,6 @@ class SendFileWCSession: NSObject, WCSessionDelegate {
         
         do {
             try csv.write(to: url, atomically: true, encoding: String.Encoding.utf8)
-//            WCSession.default.transferFile(url, metadata: message)
-            session.transferFile(url, metadata: message)
-        } catch {
-            return false
-        }
-        return true
-    }
-    
-    private func sendGravityAndAttitudeFile(directoryName: String) -> Bool {
-        let csv = crateCsv.crateGravityAndAttitudeCsv()
-        
-        let tempDirectory = FileManager.default.temporaryDirectory
-        let fileName = "GravityAndAttitude.csv"
-        
-        let url = tempDirectory.appendingPathComponent(fileName)
-        let message = ["title": directoryName, "file": fileName, "tag": "g_and_a"]
-        
-        do {
-            try csv.write(to: url, atomically: true, encoding: String.Encoding.utf8)
-//            WCSession.default.transferFile(url, metadata: message)
             session.transferFile(url, metadata: message)
         } catch {
             return false

@@ -14,8 +14,8 @@ import GoogleMobileAds
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GADBannerViewDelegate {
     var bannerView: GADBannerView!
+    private var realm: Realm!
     private let locationManager = CLLocationManager()
-    private let realm = try! Realm()
     
     @IBOutlet weak var TableView: UITableView!
     
@@ -95,9 +95,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
-    private var session: WCSession?
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        var config = Realm.Configuration()
+        let libraryURL = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first!
+        let realmURL = libraryURL.appendingPathComponent("MyRealm.realm")
+        config.fileURL = realmURL
+        Realm.Configuration.defaultConfiguration = config
+        self.realm = try! Realm()
+        
         bannerView = GADBannerView(adSize: GADAdSizeBanner)
         bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         bannerView.rootViewController = self
@@ -109,9 +116,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             locationManager.requestAlwaysAuthorization()
         }
         
-        self.session = .default
-        self.session?.delegate = self
-        self.session?.activate()
+        if WCSession.isSupported() {
+            WCSession.default.delegate = self
+            WCSession.default.activate()
+        }
 
         TableView.dataSource = self
         TableView.delegate = self
@@ -144,7 +152,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
 
 extension ViewController: WCSessionDelegate {
-    
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         if let error = error {
             print(error.localizedDescription)

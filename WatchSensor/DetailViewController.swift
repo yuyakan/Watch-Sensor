@@ -43,11 +43,8 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, GADFullScree
         scrollWidth = firstScrollView.frame.size.width
         ExportButtonOutlet.layer.cornerRadius = 10
         ExportButtonOutlet.layer.shadowOpacity = 0.7
-        // 影のぼかしの大きさ
         ExportButtonOutlet.layer.shadowRadius = 3
-        // 影の色
         ExportButtonOutlet.layer.shadowColor = UIColor.black.cgColor
-        // 影の方向
         ExportButtonOutlet.layer.shadowOffset = CGSize(width: 0, height: 4)
         
         
@@ -109,13 +106,18 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, GADFullScree
     
     @IBAction func ExportButton(_ sender: Any) {
         if exportFile.exportFiles(fileInfo: fileInfo) {
-            let alertController = UIAlertController(title: "Completed", message: "Export completed.", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            let alert = UIAlertController(title: String(localized: "Save completed"), message: String(localized: "saveFile"), preferredStyle: .alert)
+            let imageView = UIImageView(frame: CGRect(x: 10, y: 105, width: 250, height: 140))
+            let height = NSLayoutConstraint(item: alert.view!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 320)
+            alert.view.addConstraint(height)
+            imageView.image = UIImage(named: "file")
+            alert.view.addSubview(imageView)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler:  {_ in 
                 if let interstitial = self.interstitial {
                     interstitial.present(fromRootViewController: self)
                 }
             }))
-            self.present(alertController, animated: true, completion: nil)
+            present(alert, animated: true)
         }
     }
     

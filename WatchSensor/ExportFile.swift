@@ -14,6 +14,7 @@ class ExportFile {
     func exportFiles(fileInfo: FileInfo) -> Bool {
         let directory = NSHomeDirectory() + "/Documents/" + fileInfo.directoryInfo
         let isDirectoryCreated = createDirectory(directory: directory)
+        
         let isSensorFileExported = exportFile(directory: directory, Info: fileInfo.sensorInfo)
         let isGpsFileExported = exportFile(directory: directory, Info: fileInfo.gpsInfo)
         let isGravityAndAttitudeFileExported = exportFile(directory: directory, Info: fileInfo.gravityAndAttitudeInfo)
