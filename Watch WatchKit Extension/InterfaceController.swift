@@ -8,65 +8,87 @@
 import WatchKit
 import Combine
 
-class InterfaceController: WKInterfaceController {
-    private var subscriptions = Set<AnyCancellable>()
-    var getSensorModel = GetSenorModel.shared
-    var sendFileWCSession = SendFileWCSession()
-    var gpsManager = GPSManager()
-    
-    override func awake(withContext context: Any?) {
-        super.awake(withContext: context)
-        
-        sendFileWCSession.wCSessionSetting()
-        getSensorModel.checkMotionActive()
-        
-        getSensorModel.$displyTime.sink { time in
-            self.TimeLabel.setText(time)
-        }.store(in: &subscriptions)
-        
-        StopButtonOutlet.setEnabled(false)
-        SaveButtonOutlet.setEnabled(false)
+import SwiftUI
+
+class InterfaceController : WKHostingController<HomeView> {
+    override var body: HomeView {
+        return HomeView()
     }
-  
-    @IBOutlet weak var TimeLabel: WKInterfaceLabel!
+}
+
+struct HomeView: View {
+    @ObservedObject var homeViewModel = HomeViewModel()
     
-    @IBOutlet weak var StartButtonOutlet: WKInterfaceButton!
-    @IBOutlet weak var StopButtonOutlet: WKInterfaceButton!
-    @IBOutlet weak var SaveButtonOutlet: WKInterfaceButton!
-    
-    
-    @IBAction func StartButton() {
-        StopButtonOutlet.setEnabled(true)
-        getSensorModel.initializeSensorData()
-        gpsManager.startUpdata()
-        getSensorModel.startGetMotionData()
-    }
-    
-    @IBAction func StopButton() {
-        StopButtonOutlet.setEnabled(false)
-        SaveButtonOutlet.setEnabled(true)
-        getSensorModel.stopGetMotionData()
-        gpsManager.stopUpdate()
-    }
-    
-    @IBAction func SaveButton() {
-        
-        SaveButtonOutlet.setEnabled(false)
-        let isFileSended = sendFileWCSession.sendFile()
-        
-        if isFileSended {
-            let saveAction = WKAlertAction.init(title: "OK",
-                                                  style: .default,
-                                                  handler: {
-                                                    print("save complete")
-            })
-            self.presentAlert(withTitle: "Save complete",
-                              message: "",
-                              preferredStyle: .alert,
-                              actions: [saveAction])
-            
-            TimeLabel.setText("0.00")
+    var body: some View {
+        ScrollView {
+            VStack() {
+                Text(homeViewModel.displayTime)
+                    .font(.largeTitle)
+                    .padding(.vertical, 10)
+                Button(action: {homeViewModel.start()}, label: {
+                    Text("Start")
+                })
+                Button(action: {homeViewModel.stop()}, label: {
+                    Text("Stop")
+                })
+                .disabled(homeViewModel.isStopButtonDisabled)
+                .opacity(homeViewModel.isStopButtonDisabled ? 0.5 : 1)
+                Button(action: {homeViewModel.save()}, label: {
+                    Text("Save")
+                })
+                .disabled(homeViewModel.isSaveButtonDisabled)
+                .opacity(homeViewModel.isSaveButtonDisabled ? 0.5 : 1)
+            }
+            .alert("Save complete", isPresented: $homeViewModel.isPresentedSaveCompleteAlert) {
+                Button("OK") {homeViewModel.allInitialize()}
+            }
         }
     }
 }
 
+class HomeViewModel: ObservableObject {
+    @Published var isStopButtonDisabled = true
+    @Published var isSaveButtonDisabled = true
+    @Published var isPresentedSaveCompleteAlert = false
+    @Published var displayTime: String
+    var gpsManager = GPSManager()
+    var getSensorModel = GetSenorModel.shared
+    var sendFileWCSession = SendFileWCSession()
+    
+    init() {
+        sendFileWCSession.wCSessionSetting()
+        getSensorModel.checkMotionActive()
+        self.displayTime = getSensorModel.displayTime
+        
+        self.getSensorModel.$displayTime.assign(to: &$displayTime)
+    }
+    
+    func start() {
+        getSensorModel.initializeSensorData()
+        getSensorModel.startGetMotionData()
+        gpsManager.startUpdata()
+        isStopButtonDisabled = false
+        isSaveButtonDisabled = true
+    }
+    
+    func stop() {
+        getSensorModel.stopGetMotionData()
+        gpsManager.stopUpdate()
+        isStopButtonDisabled = true
+        isSaveButtonDisabled = false
+    }
+    
+    func save() {
+        isPresentedSaveCompleteAlert = sendFileWCSession.sendFile()
+    }
+    
+    func allInitialize() {
+        isSaveButtonDisabled = true
+        isStopButtonDisabled = true
+        isPresentedSaveCompleteAlert = false
+        displayTime = "0.00"
+        gpsManager = GPSManager()
+        getSensorModel = GetSenorModel.shared
+        sendFileWCSession = SendFileWCSession()
+    }
+}

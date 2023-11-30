@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  WatchSensor
+
+  Created by 上別縄祐也 on 2023/11/30.
+  
+*/
+
+"Save completed" = "保存完成";
+"saveFile" = "'文件'->'我的iPhone'->'EarphonesAccelerationSensor'";

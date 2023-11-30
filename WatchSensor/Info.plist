@@ -2,8 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>GADApplicationIdentifier</key>
-    <string>ca-app-pub-3940256099942544~1458002511</string>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-3155724310732667~8282041043</string>
     <key>SKAdNetworkItems</key>
     <array>
       <dict>
@@ -203,6 +203,10 @@
         <string>3qcr597p9d.skadnetwork</string>
       </dict>
     </array>
+    <key>BGTaskSchedulerPermittedIdentifiers</key>
+    <array>
+        <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    </array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -224,13 +228,12 @@
 	</dict>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>fetch</string>
 		<string>location</string>
+		<string>processing</string>
+		<string>remote-notification</string>
 	</array>
 	<key>UIFileSharingEnabled</key>
 	<true/>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Get GPS Information</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Get GPS Information</string>
 </dict>
 </plist>

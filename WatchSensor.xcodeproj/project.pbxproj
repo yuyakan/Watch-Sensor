@@ -11,7 +11,6 @@
 		45690917E8D17BAD13389334 /* Pods_WatchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7A32CD6A037C8419373EA4C /* Pods_WatchTests.framework */; };
 		4B06479E2873E82D005F4F26 /* MakeChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B06479D2873E82D005F4F26 /* MakeChart.swift */; };
 		4B0647A02873F915005F4F26 /* ExportFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B06479F2873F915005F4F26 /* ExportFile.swift */; };
-		4B0647A428757BA6005F4F26 /* GravityAndAttiude.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0647A328757BA6005F4F26 /* GravityAndAttiude.swift */; };
 		4B2A5D78286E86BD00D366BC /* GetSensorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2A5D77286E86BD00D366BC /* GetSensorModel.swift */; };
 		4B49E836287D045F00D21BEF /* SendFileWCSessionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B49E835287D045F00D21BEF /* SendFileWCSessionTest.swift */; };
 		4B538AAD2871592E0026858D /* SendFileWCSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B538AAC2871592E0026858D /* SendFileWCSession.swift */; };
@@ -31,6 +30,7 @@
 		4BB3FF5B287345190042AB9F /* GpsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB3FF5A287345190042AB9F /* GpsInfo.swift */; };
 		4BB3FF5D2873458B0042AB9F /* SensorInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB3FF5C2873458B0042AB9F /* SensorInfo.swift */; };
 		4BB3FF5F287345BC0042AB9F /* DirectoryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB3FF5E287345BC0042AB9F /* DirectoryInfo.swift */; };
+		4BB5A53F2B17E0FD00418DA2 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BB5A53D2B17E0FD00418DA2 /* Interface.storyboard */; };
 		4BC76EC328699A1700E53098 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC76EC228699A1700E53098 /* AppDelegate.swift */; };
 		4BC76EC528699A1700E53098 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC76EC428699A1700E53098 /* SceneDelegate.swift */; };
 		4BC76EC728699A1700E53098 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC76EC628699A1700E53098 /* ViewController.swift */; };
@@ -40,7 +40,6 @@
 		4BC76EDA28699A1800E53098 /* WatchSensorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC76ED928699A1800E53098 /* WatchSensorTests.swift */; };
 		4BC76EE428699A1800E53098 /* WatchSensorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC76EE328699A1800E53098 /* WatchSensorUITests.swift */; };
 		4BC76EE628699A1800E53098 /* WatchSensorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC76EE528699A1800E53098 /* WatchSensorUITestsLaunchTests.swift */; };
-		4BC76EF828699A3600E53098 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BC76EF628699A3600E53098 /* Interface.storyboard */; };
 		4BC76EFA28699A3600E53098 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BC76EF928699A3600E53098 /* Assets.xcassets */; };
 		4BC76F0528699A3600E53098 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC76F0428699A3600E53098 /* InterfaceController.swift */; };
 		4BC76F0728699A3600E53098 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC76F0628699A3600E53098 /* ExtensionDelegate.swift */; };
@@ -52,6 +51,7 @@
 		4BC76F2528699A3700E53098 /* WatchUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC76F2428699A3700E53098 /* WatchUITestsLaunchTests.swift */; };
 		4BC76F2828699A3700E53098 /* Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 4BC76EF428699A3600E53098 /* Watch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4BC76F3828699D2700E53098 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC76F3728699D2700E53098 /* DetailViewController.swift */; };
+		4BE981BA2B18CA5D00D7C5A3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4BE981BC2B18CA5D00D7C5A3 /* Localizable.strings */; };
 		8339436F7B86F8F844524D4B /* Pods_Watch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC5F5F892CCDD0C2C1FCCA4F /* Pods_Watch.framework */; };
 		89EAC9513A7D06BC2A3A560A /* Pods_WatchSensor_WatchSensorUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA915673D72DEB1F03A7792D /* Pods_WatchSensor_WatchSensorUITests.framework */; };
 		CA040BAD455A5D3EAA70BF55 /* Pods_Watch_WatchUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F781317ECE610086C43B7EA /* Pods_Watch_WatchUITests.framework */; };
@@ -117,7 +117,6 @@
 		442E8DDC18E07F35F0F402BF /* Pods-Watch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watch.debug.xcconfig"; path = "Target Support Files/Pods-Watch/Pods-Watch.debug.xcconfig"; sourceTree = "<group>"; };
 		4B06479D2873E82D005F4F26 /* MakeChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeChart.swift; sourceTree = "<group>"; };
 		4B06479F2873F915005F4F26 /* ExportFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportFile.swift; sourceTree = "<group>"; };
-		4B0647A328757BA6005F4F26 /* GravityAndAttiude.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravityAndAttiude.swift; sourceTree = "<group>"; };
 		4B2A5D77286E86BD00D366BC /* GetSensorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSensorModel.swift; sourceTree = "<group>"; };
 		4B49E835287D045F00D21BEF /* SendFileWCSessionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFileWCSessionTest.swift; sourceTree = "<group>"; };
 		4B538AAC2871592E0026858D /* SendFileWCSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFileWCSession.swift; sourceTree = "<group>"; };
@@ -139,6 +138,7 @@
 		4BB3FF5C2873458B0042AB9F /* SensorInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorInfo.swift; sourceTree = "<group>"; };
 		4BB3FF5E287345BC0042AB9F /* DirectoryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryInfo.swift; sourceTree = "<group>"; };
 		4BB4A65C3170916A2FB4D9DC /* Pods_WatchSensorTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WatchSensorTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BB5A53E2B17E0FD00418DA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		4BC76EBF28699A1700E53098 /* WatchSensor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchSensor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BC76EC228699A1700E53098 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4BC76EC428699A1700E53098 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -153,7 +153,6 @@
 		4BC76EE328699A1800E53098 /* WatchSensorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSensorUITests.swift; sourceTree = "<group>"; };
 		4BC76EE528699A1800E53098 /* WatchSensorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSensorUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4BC76EF428699A3600E53098 /* Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Watch.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4BC76EF728699A3600E53098 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		4BC76EF928699A3600E53098 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4BC76F0428699A3600E53098 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
 		4BC76F0628699A3600E53098 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
@@ -168,6 +167,39 @@
 		4BC76F2228699A3700E53098 /* WatchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchUITests.swift; sourceTree = "<group>"; };
 		4BC76F2428699A3700E53098 /* WatchUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4BC76F3728699D2700E53098 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		4BE981BB2B18CA5D00D7C5A3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4BE981BD2B18CB1A00D7C5A3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		4BE981BE2B18CB1A00D7C5A3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		4BE981BF2B18CB1A00D7C5A3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Interface.strings"; sourceTree = "<group>"; };
+		4BE981C02B18CB1A00D7C5A3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		4BE981C12B18CB2600D7C5A3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
+		4BE981C22B18CB2600D7C5A3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		4BE981C32B18CB2600D7C5A3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Interface.strings; sourceTree = "<group>"; };
+		4BE981C42B18CB2600D7C5A3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4BE981C52B18CB7800D7C5A3 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
+		4BE981C62B18CB7800D7C5A3 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		4BE981C72B18CB7900D7C5A3 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Interface.strings; sourceTree = "<group>"; };
+		4BE981C82B18CB7900D7C5A3 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4BE981C92B18CB8100D7C5A3 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
+		4BE981CA2B18CB8200D7C5A3 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		4BE981CB2B18CB8200D7C5A3 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Interface.strings; sourceTree = "<group>"; };
+		4BE981CC2B18CB8200D7C5A3 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4BE981CD2B18CB8B00D7C5A3 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
+		4BE981CE2B18CB8B00D7C5A3 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		4BE981CF2B18CB8B00D7C5A3 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Interface.strings; sourceTree = "<group>"; };
+		4BE981D02B18CB8B00D7C5A3 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4BE981D12B18CBA200D7C5A3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		4BE981D22B18CBA200D7C5A3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		4BE981D32B18CBA200D7C5A3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Interface.strings; sourceTree = "<group>"; };
+		4BE981D42B18CBA200D7C5A3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4BE981D52B18CBB100D7C5A3 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Main.strings"; sourceTree = "<group>"; };
+		4BE981D62B18CBB100D7C5A3 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		4BE981D72B18CBB100D7C5A3 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Interface.strings"; sourceTree = "<group>"; };
+		4BE981D82B18CBB100D7C5A3 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		4BE981D92B18CBBA00D7C5A3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		4BE981DA2B18CBBA00D7C5A3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		4BE981DB2B18CBBA00D7C5A3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Interface.strings; sourceTree = "<group>"; };
+		4BE981DC2B18CBBB00D7C5A3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4C0D1602CD82611F9594256C /* Pods-WatchTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatchTests.debug.xcconfig"; path = "Target Support Files/Pods-WatchTests/Pods-WatchTests.debug.xcconfig"; sourceTree = "<group>"; };
 		56CCA621A56A4C388E4CAC44 /* Pods-WatchSensor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatchSensor.debug.xcconfig"; path = "Target Support Files/Pods-WatchSensor/Pods-WatchSensor.debug.xcconfig"; sourceTree = "<group>"; };
 		64395993253510F59C9F92EC /* Pods-WatchSensor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatchSensor.release.xcconfig"; path = "Target Support Files/Pods-WatchSensor/Pods-WatchSensor.release.xcconfig"; sourceTree = "<group>"; };
@@ -292,7 +324,6 @@
 				4BB3FF5828733B160042AB9F /* FileInfo.swift */,
 				4BB3FF5A287345190042AB9F /* GpsInfo.swift */,
 				4BB3FF5C2873458B0042AB9F /* SensorInfo.swift */,
-				4B0647A328757BA6005F4F26 /* GravityAndAttiude.swift */,
 				4BB3FF5E287345BC0042AB9F /* DirectoryInfo.swift */,
 			);
 			path = DataModel;
@@ -336,6 +367,7 @@
 				4BC76F3728699D2700E53098 /* DetailViewController.swift */,
 				4B06479D2873E82D005F4F26 /* MakeChart.swift */,
 				4B06479F2873F915005F4F26 /* ExportFile.swift */,
+				4BE981BC2B18CA5D00D7C5A3 /* Localizable.strings */,
 				4BB3FF5728733B030042AB9F /* DataModel */,
 				4BA39D58287DB4D000E74EE9 /* Mock */,
 				4BC76EC828699A1700E53098 /* Main.storyboard */,
@@ -369,7 +401,7 @@
 			isa = PBXGroup;
 			children = (
 				4B64FA682B165A4300613B25 /* Info.plist */,
-				4BC76EF628699A3600E53098 /* Interface.storyboard */,
+				4BB5A53D2B17E0FD00418DA2 /* Interface.storyboard */,
 				4BC76EF928699A3600E53098 /* Assets.xcassets */,
 			);
 			path = Watch;
@@ -588,6 +620,14 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
+				fr,
+				ja,
+				ko,
+				es,
+				de,
+				"pt-BR",
+				ru,
 			);
 			mainGroup = 4BC76EB628699A1700E53098;
 			productRefGroup = 4BC76EC028699A1700E53098 /* Products */;
@@ -610,6 +650,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4BC76ECF28699A1800E53098 /* LaunchScreen.storyboard in Resources */,
+				4BE981BA2B18CA5D00D7C5A3 /* Localizable.strings in Resources */,
 				4BC76ECC28699A1800E53098 /* Assets.xcassets in Resources */,
 				4BC76ECA28699A1700E53098 /* Main.storyboard in Resources */,
 			);
@@ -634,8 +675,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4BC76EFA28699A3600E53098 /* Assets.xcassets in Resources */,
+				4BB5A53F2B17E0FD00418DA2 /* Interface.storyboard in Resources */,
 				4BC76F0D28699A3700E53098 /* Assets.xcassets in Resources */,
-				4BC76EF828699A3600E53098 /* Interface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -863,7 +904,6 @@
 				4BB3FF5928733B160042AB9F /* FileInfo.swift in Sources */,
 				4BB3FF5F287345BC0042AB9F /* DirectoryInfo.swift in Sources */,
 				4B06479E2873E82D005F4F26 /* MakeChart.swift in Sources */,
-				4B0647A428757BA6005F4F26 /* GravityAndAttiude.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -956,10 +996,34 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		4BB5A53D2B17E0FD00418DA2 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4BB5A53E2B17E0FD00418DA2 /* Base */,
+				4BE981BF2B18CB1A00D7C5A3 /* zh-Hans */,
+				4BE981C32B18CB2600D7C5A3 /* fr */,
+				4BE981C72B18CB7900D7C5A3 /* ja */,
+				4BE981CB2B18CB8200D7C5A3 /* ko */,
+				4BE981CF2B18CB8B00D7C5A3 /* es */,
+				4BE981D32B18CBA200D7C5A3 /* de */,
+				4BE981D72B18CBB100D7C5A3 /* pt-BR */,
+				4BE981DB2B18CBBA00D7C5A3 /* ru */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
 		4BC76EC828699A1700E53098 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				4BC76EC928699A1700E53098 /* Base */,
+				4BE981BD2B18CB1A00D7C5A3 /* zh-Hans */,
+				4BE981C12B18CB2600D7C5A3 /* fr */,
+				4BE981C52B18CB7800D7C5A3 /* ja */,
+				4BE981C92B18CB8100D7C5A3 /* ko */,
+				4BE981CD2B18CB8B00D7C5A3 /* es */,
+				4BE981D12B18CBA200D7C5A3 /* de */,
+				4BE981D52B18CBB100D7C5A3 /* pt-BR */,
+				4BE981D92B18CBBA00D7C5A3 /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -968,16 +1032,32 @@
 			isa = PBXVariantGroup;
 			children = (
 				4BC76ECE28699A1800E53098 /* Base */,
+				4BE981BE2B18CB1A00D7C5A3 /* zh-Hans */,
+				4BE981C22B18CB2600D7C5A3 /* fr */,
+				4BE981C62B18CB7800D7C5A3 /* ja */,
+				4BE981CA2B18CB8200D7C5A3 /* ko */,
+				4BE981CE2B18CB8B00D7C5A3 /* es */,
+				4BE981D22B18CBA200D7C5A3 /* de */,
+				4BE981D62B18CBB100D7C5A3 /* pt-BR */,
+				4BE981DA2B18CBBA00D7C5A3 /* ru */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		4BC76EF628699A3600E53098 /* Interface.storyboard */ = {
+		4BE981BC2B18CA5D00D7C5A3 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4BC76EF728699A3600E53098 /* Base */,
+				4BE981BB2B18CA5D00D7C5A3 /* en */,
+				4BE981C02B18CB1A00D7C5A3 /* zh-Hans */,
+				4BE981C42B18CB2600D7C5A3 /* fr */,
+				4BE981C82B18CB7900D7C5A3 /* ja */,
+				4BE981CC2B18CB8200D7C5A3 /* ko */,
+				4BE981D02B18CB8B00D7C5A3 /* es */,
+				4BE981D42B18CBA200D7C5A3 /* de */,
+				4BE981D82B18CBB100D7C5A3 /* pt-BR */,
+				4BE981DC2B18CBBB00D7C5A3 /* ru */,
 			);
-			name = Interface.storyboard;
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -987,6 +1067,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -1048,6 +1129,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -1111,8 +1193,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WatchSensor/Info.plist;
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Get GPS information";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Get GPS information";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Get GPS Information";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Get GPS Information";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1122,7 +1204,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kanbe1365.WatchSensor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1143,8 +1225,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WatchSensor/Info.plist;
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Get GPS information";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Get GPS information";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Get GPS Information";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Get GPS Information";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1154,7 +1236,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kanbe1365.WatchSensor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1257,7 +1339,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Watch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Watch;
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = Watch.ComplicationController;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Get GPS Infromation";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Get GPS Information";
@@ -1267,7 +1349,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kanbe1365.WatchSensor.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1293,7 +1375,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Watch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Watch;
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = Watch.ComplicationController;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Get GPS Infromation";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Get GPS Information";
@@ -1303,7 +1385,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kanbe1365.WatchSensor.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;

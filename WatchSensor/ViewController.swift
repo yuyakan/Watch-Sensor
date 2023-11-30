@@ -14,8 +14,8 @@ import GoogleMobileAds
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GADBannerViewDelegate {
     var bannerView: GADBannerView!
+    private var realm: Realm!
     private let locationManager = CLLocationManager()
-    private let realm = try! Realm()
     
     @IBOutlet weak var TableView: UITableView!
     
@@ -41,14 +41,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let directoryInfo = self.realm.objects(DirectoryInfo.self)[indexPath.row]
             let sensorInfo = self.realm.objects(SensorInfo.self)[indexPath.row]
             let gpsInfo = self.realm.objects(GpsInfo.self)[indexPath.row]
-            let gravityAndAttitudeInfo = self.realm.objects(GravityAndAttitudeInfo.self)[indexPath.row]
             
             do{
                 try self.realm.write{
                     self.realm.delete(directoryInfo)
                     self.realm.delete(sensorInfo)
                     self.realm.delete(gpsInfo)
-                    self.realm.delete(gravityAndAttitudeInfo)
                 }
             } catch {
                 print(error)
@@ -74,11 +72,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let gpsFileContents = realm.objects(GpsInfo.self)[indexPath.row].fileContents
         let gpsInfo = [gpsFileName, gpsFileContents]
 
-        let gravityAndAttitudeFileName = realm.objects(GravityAndAttitudeInfo.self)[indexPath.row].fileName
-        let gravityAndAttitudeFileContents = realm.objects(GravityAndAttitudeInfo.self)[indexPath.row].fileContents
-        let gravityAndAttitudeInfo = [gravityAndAttitudeFileName, gravityAndAttitudeFileContents]
-
-        performSegue(withIdentifier: "Detail", sender: FileInfo(sensorInfo: sensorInfo, gpsInfo: gpsInfo, directoryInfo: realm.objects(DirectoryInfo.self)[indexPath.row].directoryName, gravityAndAttitudeInfo: gravityAndAttitudeInfo))
+        performSegue(withIdentifier: "Detail", sender: FileInfo(sensorInfo: sensorInfo, gpsInfo: gpsInfo, directoryInfo: realm.objects(DirectoryInfo.self)[indexPath.row].directoryName))
         
 //        performSegue(withIdentifier: "Detail", sender: FileInfo.mock1)// テスト用
     }
@@ -95,9 +89,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
-    private var session: WCSession?
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        var config = Realm.Configuration()
+        let libraryURL = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first!
+        let realmURL = libraryURL.appendingPathComponent("MyRealm.realm")
+        config.fileURL = realmURL
+        Realm.Configuration.defaultConfiguration = config
+        self.realm = try! Realm()
+        
         bannerView = GADBannerView(adSize: GADAdSizeBanner)
         bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         bannerView.rootViewController = self
@@ -109,9 +110,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             locationManager.requestAlwaysAuthorization()
         }
         
-        self.session = .default
-        self.session?.delegate = self
-        self.session?.activate()
+        if WCSession.isSupported() {
+            WCSession.default.delegate = self
+            WCSession.default.activate()
+        }
 
         TableView.dataSource = self
         TableView.delegate = self
@@ -144,7 +146,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
 
 extension ViewController: WCSessionDelegate {
-    
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         if let error = error {
             print(error.localizedDescription)
@@ -177,17 +178,6 @@ extension ViewController: WCSessionDelegate {
                     try! self.realm.write {
                         self.realm.add(gpsInfo)
                     }
-                    
-                } else if tag == "g_and_a" {
-                    
-                    let gravityAndAttitudeInfo = GravityAndAttitudeInfo()
-                    gravityAndAttitudeInfo.fileName = fileName
-                    gravityAndAttitudeInfo.fileContents = fileContents
-                    
-                    try! self.realm.write {
-                        self.realm.add(gravityAndAttitudeInfo)
-                    }
-                    
                 } else {
                     
                     let directoryInfo = DirectoryInfo()
