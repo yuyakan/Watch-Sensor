@@ -1,0 +1,15 @@
+
+/* Class = "UILabel"; text = "Acceleration"; ObjectID = "FNY-MW-NCx"; */
+"FNY-MW-NCx.text" = "Acceleration";
+
+/* Class = "UILabel"; text = "Watch Sensor"; ObjectID = "UVN-ZY-zob"; */
+"UVN-ZY-zob.text" = "Watch Sensor";
+
+/* Class = "UIButton"; configuration.title = "Export"; ObjectID = "UxF-yw-Iow"; */
+"UxF-yw-Iow.configuration.title" = "Export";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "UxF-yw-Iow"; */
+"UxF-yw-Iow.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "RotationRate"; ObjectID = "ukE-dA-wyP"; */
+"ukE-dA-wyP.text" = "RotationRate";
