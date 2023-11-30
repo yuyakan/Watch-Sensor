@@ -11,6 +11,4 @@ struct FileInfo {
     var sensorInfo: [String] = []
     var gpsInfo: [String] = []
     var directoryInfo: String = ""
-    
-    var gravityAndAttitudeInfo: [String] = []
 }

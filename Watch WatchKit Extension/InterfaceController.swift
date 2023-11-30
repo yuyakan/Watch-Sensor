@@ -40,7 +40,7 @@ struct HomeView: View {
                 .opacity(homeViewModel.isSaveButtonDisabled ? 0.5 : 1)
             }
             .alert("Save complete", isPresented: $homeViewModel.isPresentedSaveCompleteAlert) {
-                Button("OK") {}
+                Button("OK") {homeViewModel.allInitialize()}
             }
         }
     }
@@ -68,6 +68,7 @@ class HomeViewModel: ObservableObject {
         getSensorModel.startGetMotionData()
         gpsManager.startUpdata()
         isStopButtonDisabled = false
+        isSaveButtonDisabled = true
     }
     
     func stop() {
@@ -78,7 +79,16 @@ class HomeViewModel: ObservableObject {
     }
     
     func save() {
-        isSaveButtonDisabled = true
         isPresentedSaveCompleteAlert = sendFileWCSession.sendFile()
+    }
+    
+    func allInitialize() {
+        isSaveButtonDisabled = true
+        isStopButtonDisabled = true
+        isPresentedSaveCompleteAlert = false
+        displayTime = "0.00"
+        gpsManager = GPSManager()
+        getSensorModel = GetSenorModel.shared
+        sendFileWCSession = SendFileWCSession()
     }
 }

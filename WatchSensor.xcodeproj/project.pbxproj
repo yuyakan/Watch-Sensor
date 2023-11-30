@@ -11,7 +11,6 @@
 		45690917E8D17BAD13389334 /* Pods_WatchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7A32CD6A037C8419373EA4C /* Pods_WatchTests.framework */; };
 		4B06479E2873E82D005F4F26 /* MakeChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B06479D2873E82D005F4F26 /* MakeChart.swift */; };
 		4B0647A02873F915005F4F26 /* ExportFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B06479F2873F915005F4F26 /* ExportFile.swift */; };
-		4B0647A428757BA6005F4F26 /* GravityAndAttiude.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0647A328757BA6005F4F26 /* GravityAndAttiude.swift */; };
 		4B2A5D78286E86BD00D366BC /* GetSensorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2A5D77286E86BD00D366BC /* GetSensorModel.swift */; };
 		4B49E836287D045F00D21BEF /* SendFileWCSessionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B49E835287D045F00D21BEF /* SendFileWCSessionTest.swift */; };
 		4B538AAD2871592E0026858D /* SendFileWCSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B538AAC2871592E0026858D /* SendFileWCSession.swift */; };
@@ -118,7 +117,6 @@
 		442E8DDC18E07F35F0F402BF /* Pods-Watch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watch.debug.xcconfig"; path = "Target Support Files/Pods-Watch/Pods-Watch.debug.xcconfig"; sourceTree = "<group>"; };
 		4B06479D2873E82D005F4F26 /* MakeChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeChart.swift; sourceTree = "<group>"; };
 		4B06479F2873F915005F4F26 /* ExportFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportFile.swift; sourceTree = "<group>"; };
-		4B0647A328757BA6005F4F26 /* GravityAndAttiude.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravityAndAttiude.swift; sourceTree = "<group>"; };
 		4B2A5D77286E86BD00D366BC /* GetSensorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSensorModel.swift; sourceTree = "<group>"; };
 		4B49E835287D045F00D21BEF /* SendFileWCSessionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFileWCSessionTest.swift; sourceTree = "<group>"; };
 		4B538AAC2871592E0026858D /* SendFileWCSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFileWCSession.swift; sourceTree = "<group>"; };
@@ -326,7 +324,6 @@
 				4BB3FF5828733B160042AB9F /* FileInfo.swift */,
 				4BB3FF5A287345190042AB9F /* GpsInfo.swift */,
 				4BB3FF5C2873458B0042AB9F /* SensorInfo.swift */,
-				4B0647A328757BA6005F4F26 /* GravityAndAttiude.swift */,
 				4BB3FF5E287345BC0042AB9F /* DirectoryInfo.swift */,
 			);
 			path = DataModel;
@@ -907,7 +904,6 @@
 				4BB3FF5928733B160042AB9F /* FileInfo.swift in Sources */,
 				4BB3FF5F287345BC0042AB9F /* DirectoryInfo.swift in Sources */,
 				4B06479E2873E82D005F4F26 /* MakeChart.swift in Sources */,
-				4B0647A428757BA6005F4F26 /* GravityAndAttiude.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1208,7 +1204,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kanbe1365.WatchSensor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1240,7 +1236,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kanbe1365.WatchSensor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1343,7 +1339,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Watch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Watch;
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = Watch.ComplicationController;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Get GPS Infromation";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Get GPS Information";
@@ -1353,7 +1349,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kanbe1365.WatchSensor.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1379,7 +1375,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Watch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Watch;
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = Watch.ComplicationController;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Get GPS Infromation";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Get GPS Information";
@@ -1389,7 +1385,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kanbe1365.WatchSensor.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;

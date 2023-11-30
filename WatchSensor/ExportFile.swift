@@ -17,9 +17,8 @@ class ExportFile {
         
         let isSensorFileExported = exportFile(directory: directory, Info: fileInfo.sensorInfo)
         let isGpsFileExported = exportFile(directory: directory, Info: fileInfo.gpsInfo)
-        let isGravityAndAttitudeFileExported = exportFile(directory: directory, Info: fileInfo.gravityAndAttitudeInfo)
         
-        if isDirectoryCreated && isSensorFileExported && isGpsFileExported && isGravityAndAttitudeFileExported {
+        if isDirectoryCreated && isSensorFileExported && isGpsFileExported {
             return true
         }
         return false

@@ -41,14 +41,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let directoryInfo = self.realm.objects(DirectoryInfo.self)[indexPath.row]
             let sensorInfo = self.realm.objects(SensorInfo.self)[indexPath.row]
             let gpsInfo = self.realm.objects(GpsInfo.self)[indexPath.row]
-            let gravityAndAttitudeInfo = self.realm.objects(GravityAndAttitudeInfo.self)[indexPath.row]
             
             do{
                 try self.realm.write{
                     self.realm.delete(directoryInfo)
                     self.realm.delete(sensorInfo)
                     self.realm.delete(gpsInfo)
-                    self.realm.delete(gravityAndAttitudeInfo)
                 }
             } catch {
                 print(error)
@@ -74,11 +72,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let gpsFileContents = realm.objects(GpsInfo.self)[indexPath.row].fileContents
         let gpsInfo = [gpsFileName, gpsFileContents]
 
-        let gravityAndAttitudeFileName = realm.objects(GravityAndAttitudeInfo.self)[indexPath.row].fileName
-        let gravityAndAttitudeFileContents = realm.objects(GravityAndAttitudeInfo.self)[indexPath.row].fileContents
-        let gravityAndAttitudeInfo = [gravityAndAttitudeFileName, gravityAndAttitudeFileContents]
-
-        performSegue(withIdentifier: "Detail", sender: FileInfo(sensorInfo: sensorInfo, gpsInfo: gpsInfo, directoryInfo: realm.objects(DirectoryInfo.self)[indexPath.row].directoryName, gravityAndAttitudeInfo: gravityAndAttitudeInfo))
+        performSegue(withIdentifier: "Detail", sender: FileInfo(sensorInfo: sensorInfo, gpsInfo: gpsInfo, directoryInfo: realm.objects(DirectoryInfo.self)[indexPath.row].directoryName))
         
 //        performSegue(withIdentifier: "Detail", sender: FileInfo.mock1)// テスト用
     }
@@ -184,17 +178,6 @@ extension ViewController: WCSessionDelegate {
                     try! self.realm.write {
                         self.realm.add(gpsInfo)
                     }
-                    
-                } else if tag == "g_and_a" {
-                    
-                    let gravityAndAttitudeInfo = GravityAndAttitudeInfo()
-                    gravityAndAttitudeInfo.fileName = fileName
-                    gravityAndAttitudeInfo.fileContents = fileContents
-                    
-                    try! self.realm.write {
-                        self.realm.add(gravityAndAttitudeInfo)
-                    }
-                    
                 } else {
                     
                     let directoryInfo = DirectoryInfo()

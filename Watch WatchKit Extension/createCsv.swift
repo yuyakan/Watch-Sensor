@@ -25,7 +25,7 @@ class CreateCsv {
     }
     
     private func zipSensorData(allData: allData) -> [String] {
-        let zip2Data = zip2Array(array1: allData.timeStamp, array2: allData.atitudeData.X)
+        let zip2Data = zip2Array(array1: allData.timeStamp, array2: allData.accelerationData.X)
         let zip3Data = zip2Array(array1: zip2Data, array2: allData.accelerationData.Y)
         let zip4Data = zip2Array(array1: zip3Data, array2: allData.accelerationData.Z)
         

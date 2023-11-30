@@ -15,7 +15,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, GADFullScree
     private var makeChart = MakeChart()
     private var exportFile = ExportFile()
     
-    var fileInfo: FileInfo = FileInfo(sensorInfo: [], gpsInfo: [], directoryInfo: "", gravityAndAttitudeInfo: [])
+    var fileInfo: FileInfo = FileInfo(sensorInfo: [], gpsInfo: [], directoryInfo: "")
     
     private let scrollHeight: CGFloat = UIScreen.main.bounds.height / 4
     private var scrollWidth: CGFloat = 0.0

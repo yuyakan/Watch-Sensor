@@ -46,7 +46,7 @@ class SendFileWCSession: NSObject, WCSessionDelegate {
     
     private func makeDirName(date: Date) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "[MM_dd]HH-mm-ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
         let fileName = dateFormatter.string(from: date)
         return fileName
     }
