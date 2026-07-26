@@ -10,7 +10,7 @@ import UIKit
 import DGCharts
 import GoogleMobileAds
 
-class DetailViewController: UIViewController, UIScrollViewDelegate, GADFullScreenContentDelegate {
+class DetailViewController: UIViewController, UIScrollViewDelegate, FullScreenContentDelegate {
     
     private var makeChart = MakeChart()
     private var exportFile = ExportFile()
@@ -22,24 +22,17 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, GADFullScree
     private let width: CGFloat = UIScreen.main.bounds.width
     
     let interstitialADTestUnitID = "ca-app-pub-3940256099942544/4411468910"
-    private var interstitial: GADInterstitialAd?
-    
+    private var interstitial: InterstitialAd?
+
+    // 広告取得失敗時の再試行（指数バックオフ）
+    private var interstitialRetryCount = 0
+    private let interstitialMaxRetryCount = 5
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let request = GADRequest()
-        GADInterstitialAd.load(withAdUnitID: "ca-app-pub-3940256099942544/4411468910", request: request,
-              completionHandler: { [self] ad, error in
-                if let error = error {
-                  print("Failed to load interstitial ad with error: \(error.localizedDescription)")
-                  return
-                }
-                interstitial = ad
-                interstitial?.fullScreenContentDelegate = self
-                print("sucess ad load")
-              }
-        )
-        
+
+        loadInterstitial()
+
         scrollWidth = firstScrollView.frame.size.width
         ExportButtonOutlet.layer.cornerRadius = 10
         ExportButtonOutlet.layer.shadowOpacity = 0.7
@@ -112,16 +105,65 @@ class DetailViewController: UIViewController, UIScrollViewDelegate, GADFullScree
             alert.view.addConstraint(height)
             imageView.image = UIImage(named: "file")
             alert.view.addSubview(imageView)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler:  {_ in 
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler:  { [weak self] _ in
+                guard let self else { return }
                 if let interstitial = self.interstitial {
-                    interstitial.present(fromRootViewController: self)
+                    self.interstitial = nil
+                    interstitial.present(from: self)
+                } else {
+                    // 広告がまだ読み込めていない場合は次回のために取得しておく
+                    self.loadInterstitial()
                 }
             }))
             present(alert, animated: true)
         }
     }
-    
-    
+
+    private func loadInterstitial() {
+        InterstitialAd.load(with: "ca-app-pub-3940256099942544/4411468910", request: Request(),
+              completionHandler: { [weak self] ad, error in
+                guard let self else { return }
+                if let error = error {
+                  print("Failed to load interstitial ad with error: \(error.localizedDescription)")
+                  self.retryLoadInterstitial()
+                  return
+                }
+                self.interstitialRetryCount = 0
+                self.interstitial = ad
+                self.interstitial?.fullScreenContentDelegate = self
+                print("sucess ad load")
+              }
+        )
+    }
+
+    // 取得失敗時、指数バックオフ（2, 4, 8, 16, 32秒）で最大5回まで再取得する
+    private func retryLoadInterstitial() {
+        guard interstitialRetryCount < interstitialMaxRetryCount else {
+            print("Interstitial ad load failed after \(interstitialMaxRetryCount) retries. Giving up.")
+            return
+        }
+        interstitialRetryCount += 1
+        let delay = pow(2.0, Double(interstitialRetryCount))
+        print("Retrying interstitial ad load (\(interstitialRetryCount)/\(interstitialMaxRetryCount)) in \(delay)s")
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+            self?.loadInterstitial()
+        }
+    }
+
+    // 広告が閉じられたら、次の保存時に表示できるよう再取得する
+    func adDidDismissFullScreenContent(_ ad: FullScreenPresentingAd) {
+        interstitialRetryCount = 0
+        loadInterstitial()
+    }
+
+    // 表示に失敗した場合も次回に備えて再取得する
+    func ad(_ ad: FullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+        print("Failed to present interstitial ad with error: \(error.localizedDescription)")
+        interstitialRetryCount = 0
+        loadInterstitial()
+    }
+
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == firstScrollView {
             firstPageControl.currentPage = Int(scrollView.contentOffset.x / scrollWidth)
