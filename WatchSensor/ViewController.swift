@@ -12,8 +12,8 @@ import CoreLocation
 import GoogleMobileAds
 
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GADBannerViewDelegate {
-    var bannerView: GADBannerView!
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, BannerViewDelegate {
+    var bannerView: BannerView!
     private var realm: Realm!
     private let locationManager = CLLocationManager()
     
@@ -99,10 +99,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         Realm.Configuration.defaultConfiguration = config
         self.realm = try! Realm()
         
-        bannerView = GADBannerView(adSize: GADAdSizeBanner)
+        bannerView = BannerView(adSize: AdSizeBanner)
         bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         bannerView.rootViewController = self
-        bannerView.load(GADRequest())
+        bannerView.load(Request())
         bannerView.delegate = self
         addBannerViewToView(bannerView)
 
@@ -121,7 +121,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         TableView.separatorColor = UIColor.white
     }
     
-    func addBannerViewToView(_ bannerView: GADBannerView) {
+    func addBannerViewToView(_ bannerView: BannerView) {
         bannerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bannerView)
         view.addConstraints(
