@@ -57,6 +57,18 @@ struct SessionDetailView: View {
         .alert("Export failed", isPresented: $exportFailed) {
             Button("OK", role: .cancel) {}
         }
+        .onAppear {
+            maybeRequestReview()
+        }
+    }
+
+    /// グラフを見られた（＝ポジティブな体験の）詳細表示時に、控えめにレビューを依頼する。
+    /// - 表示できるグラフが無い場合は依頼しない
+    /// - 3回目、以降10回ごとの詳細表示でのみ依頼
+    private func maybeRequestReview() {
+        guard !chartGroups.isEmpty else { return }
+        guard ReviewRequester.registerDetailOpenAndShouldRequest() else { return }
+        ReviewRequester.requestReview()
     }
 
     private var header: some View {

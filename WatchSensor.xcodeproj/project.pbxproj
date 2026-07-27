@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		AAAA0000000000000000F101 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA0000000000000000F001 /* DesignSystem.swift */; };
 		AAAA0000000000000000F106 /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA0000000000000000F006 /* WatchConnectivityManager.swift */; };
+		AAAA0000000000000000F107 /* ReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA0000000000000000F007 /* ReviewRequester.swift */; };
 		AAAA0000000000000000F102 /* RealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA0000000000000000F002 /* RealmStore.swift */; };
 		AAAA0000000000000000F103 /* SessionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA0000000000000000F003 /* SessionListView.swift */; };
 		AAAA0000000000000000F104 /* AdSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA0000000000000000F004 /* AdSupport.swift */; };
@@ -29,6 +30,7 @@
 		4BA682CB28806C9C0013BEC8 /* CreateCSVTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA682CA28806C9C0013BEC8 /* CreateCSVTest.swift */; };
 		4BA682CD2880F4200013BEC8 /* MakeChartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA682CC2880F4200013BEC8 /* MakeChartTests.swift */; };
 		AAAA0000000000000000F105 /* RealmStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA0000000000000000F005 /* RealmStoreTests.swift */; };
+		AAAA0000000000000000F108 /* ReviewRequesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA0000000000000000F008 /* ReviewRequesterTests.swift */; };
 		4BA682CF2881079B0013BEC8 /* ExportFileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA682CE2881079B0013BEC8 /* ExportFileTests.swift */; };
 		4BB35424288654440099F305 /* CMAcceleration+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB35423288654440099F305 /* CMAcceleration+mock.swift */; };
 		4BB35426288656A60099F305 /* CMRotationRate+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB35425288656A60099F305 /* CMRotationRate+mock.swift */; };
@@ -113,6 +115,7 @@
 /* Begin PBXFileReference section */
 		AAAA0000000000000000F001 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		AAAA0000000000000000F006 /* WatchConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityManager.swift; sourceTree = "<group>"; };
+		AAAA0000000000000000F007 /* ReviewRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRequester.swift; sourceTree = "<group>"; };
 		AAAA0000000000000000F002 /* RealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmStore.swift; sourceTree = "<group>"; };
 		AAAA0000000000000000F003 /* SessionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionListView.swift; sourceTree = "<group>"; };
 		AAAA0000000000000000F004 /* AdSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdSupport.swift; sourceTree = "<group>"; };
@@ -132,6 +135,7 @@
 		4BA682CA28806C9C0013BEC8 /* CreateCSVTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCSVTest.swift; sourceTree = "<group>"; };
 		4BA682CC2880F4200013BEC8 /* MakeChartTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeChartTests.swift; sourceTree = "<group>"; };
 		AAAA0000000000000000F005 /* RealmStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmStoreTests.swift; sourceTree = "<group>"; };
+		AAAA0000000000000000F008 /* ReviewRequesterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRequesterTests.swift; sourceTree = "<group>"; };
 		4BA682CE2881079B0013BEC8 /* ExportFileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportFileTests.swift; sourceTree = "<group>"; };
 		4BB35423288654440099F305 /* CMAcceleration+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMAcceleration+mock.swift"; sourceTree = "<group>"; };
 		4BB35425288656A60099F305 /* CMRotationRate+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMRotationRate+mock.swift"; sourceTree = "<group>"; };
@@ -324,6 +328,7 @@
 				4B06479D2873E82D005F4F26 /* MakeChart.swift */,
 				AAAA0000000000000000F001 /* DesignSystem.swift */,
 				AAAA0000000000000000F006 /* WatchConnectivityManager.swift */,
+				AAAA0000000000000000F007 /* ReviewRequester.swift */,
 				AAAA0000000000000000F002 /* RealmStore.swift */,
 				AAAA0000000000000000F003 /* SessionListView.swift */,
 				AAAA0000000000000000F004 /* AdSupport.swift */,
@@ -344,6 +349,7 @@
 				4BC76ED928699A1800E53098 /* WatchSensorTests.swift */,
 				4BA682CC2880F4200013BEC8 /* MakeChartTests.swift */,
 				AAAA0000000000000000F005 /* RealmStoreTests.swift */,
+				AAAA0000000000000000F008 /* ReviewRequesterTests.swift */,
 				4BA682CE2881079B0013BEC8 /* ExportFileTests.swift */,
 			);
 			path = WatchSensorTests;
@@ -660,6 +666,7 @@
 				4B06479E2873E82D005F4F26 /* MakeChart.swift in Sources */,
 				AAAA0000000000000000F101 /* DesignSystem.swift in Sources */,
 				AAAA0000000000000000F106 /* WatchConnectivityManager.swift in Sources */,
+				AAAA0000000000000000F107 /* ReviewRequester.swift in Sources */,
 				AAAA0000000000000000F102 /* RealmStore.swift in Sources */,
 				AAAA0000000000000000F103 /* SessionListView.swift in Sources */,
 				AAAA0000000000000000F104 /* AdSupport.swift in Sources */,
@@ -672,6 +679,7 @@
 			files = (
 				4BA682CD2880F4200013BEC8 /* MakeChartTests.swift in Sources */,
 				AAAA0000000000000000F105 /* RealmStoreTests.swift in Sources */,
+				AAAA0000000000000000F108 /* ReviewRequesterTests.swift in Sources */,
 				4BA682CF2881079B0013BEC8 /* ExportFileTests.swift in Sources */,
 				4BC76EDA28699A1800E53098 /* WatchSensorTests.swift in Sources */,
 			);
