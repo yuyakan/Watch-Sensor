@@ -17,8 +17,10 @@ class InterfaceController : WKHostingController<HomeView> {
 }
 
 struct HomeView: View {
-    @ObservedObject var homeViewModel = HomeViewModel()
-    
+    // @StateObject にすることで、View が再描画されても ViewModel が保持され、
+    // 計測中の状態が失われない（@ObservedObject + 初期化式は再生成されるアンチパターン）。
+    @StateObject var homeViewModel = HomeViewModel()
+
     var body: some View {
         ScrollView {
             VStack() {
@@ -28,6 +30,8 @@ struct HomeView: View {
                 Button(action: {homeViewModel.start()}, label: {
                     Text("Start")
                 })
+                .disabled(homeViewModel.isStartButtonDisabled)
+                .opacity(homeViewModel.isStartButtonDisabled ? 0.5 : 1)
                 Button(action: {homeViewModel.stop()}, label: {
                     Text("Stop")
                 })
@@ -50,6 +54,8 @@ struct HomeView: View {
 }
 
 class HomeViewModel: ObservableObject {
+    /// 計測中は Start を無効化する（再 Start による計測データ消去・motion二重起動を防ぐ）。
+    @Published var isStartButtonDisabled = false
     @Published var isStopButtonDisabled = true
     @Published var isSaveButtonDisabled = true
     @Published var isPresentedSaveCompleteAlert = false
@@ -72,16 +78,27 @@ class HomeViewModel: ObservableObject {
     }
 
     func start() {
+        // 計測中の再 Start はデータ消去・motion二重起動につながるため弾く。
+        guard !isStartButtonDisabled else { return }
+
         getSensorModel.initializeSensorData()
         getSensorModel.startGetMotionData()
         gpsManager.startUpdata()
+
+        // 計測中の状態に統一する（前回の保存関連状態も念のため解除）。
+        isStartButtonDisabled = true
         isStopButtonDisabled = false
         isSaveButtonDisabled = true
+        isSending = false
     }
 
     func stop() {
+        guard !isStopButtonDisabled else { return }
+
         getSensorModel.stopGetMotionData()
         gpsManager.stopUpdate()
+
+        isStartButtonDisabled = false
         isStopButtonDisabled = true
         isSaveButtonDisabled = false
     }
@@ -108,6 +125,7 @@ class HomeViewModel: ObservableObject {
 
     /// 保存完了アラートの OK 後に、次の計測に備えて状態を初期化する。
     func allInitialize() {
+        isStartButtonDisabled = false
         isSaveButtonDisabled = true
         isStopButtonDisabled = true
         isPresentedSaveCompleteAlert = false
