@@ -26,6 +26,8 @@ struct HomeView: View {
             VStack() {
                 Text(homeViewModel.displayTime)
                     .font(.largeTitle)
+                    // 等幅数字にして、桁が変わっても幅が伸縮せずカウント表示がブレないようにする。
+                    .monospacedDigit()
                     .padding(.vertical, 10)
                 Button(action: {homeViewModel.start()}, label: {
                     Text("Start")
