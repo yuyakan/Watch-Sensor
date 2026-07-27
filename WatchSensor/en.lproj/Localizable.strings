@@ -8,3 +8,18 @@
 
 "Save completed" = "Save completed";
 "saveFile" = "Saved in 'Files'->'On My iPhone'->'EarphonesAccelerationSensor'";
+
+/* UI strings added in the SwiftUI redesign */
+"Delete" = "Delete";
+"Export CSV" = "Export CSV";
+"Export failed" = "Export failed";
+"OK" = "OK";
+"Watch Sensor" = "Watch Sensor";
+"Acceleration" = "Acceleration";
+"Rotation Rate" = "Rotation Rate";
+"Gravity" = "Gravity";
+"Attitude" = "Attitude";
+"Motion & GPS recording" = "Motion & GPS recording";
+"No chartable data" = "No chartable data";
+"No Measurements Yet" = "No Measurements Yet";
+"Start a recording on your Apple Watch and save it to see your data here." = "Start a recording on your Apple Watch and save it to see your data here.";

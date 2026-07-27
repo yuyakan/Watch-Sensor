@@ -50,18 +50,21 @@ class CreateCsv {
     
     
     func createGpsCsv() -> String {
-        var csv = zip(zip(getSensorModel.getDataLog().gpsData.gpsTimeStamp, getSensorModel.getDataLog().gpsData.latitude).map{ log in "\(log.0), \(log.1)" }
-                      , getSensorModel.getDataLog().gpsData.longitude).map{ log in "\(log.0), \(log.1)" }
-            .joined(separator: "\n")
-        
-        let title: String = "time, latitude, longitude\n"
-        
-        csv = title + csv
-        
-        //mock
-//        csv = title + "1, 1, 1\n1, 1, 1"
-        
-        return csv
+        // getDataLog() は毎回スナップショットをコピーするため、1回だけ取得して使い回す。
+        // （複数回呼ぶと計測中に長さがズレる可能性がある）
+        let gps = getSensorModel.getDataLog().gpsData
+
+        // 先頭に「計測開始からの相対経過秒(elapsedTime)」を出力し、motion CSV の time 列と
+        // 同じ時間軸で突き合わせできるようにする。従来の絶対時刻(time)も残す。
+        var rows: [String] = []
+        for i in 0..<gps.latitude.count {
+            let elapsed = i < gps.elapsedTime.count ? gps.elapsedTime[i] : 0.0
+            let time = i < gps.gpsTimeStamp.count ? gps.gpsTimeStamp[i] : ""
+            rows.append("\(elapsed), \(time), \(gps.latitude[i]), \(gps.longitude[i])")
+        }
+
+        let title: String = "elapsedTime, time, latitude, longitude\n"
+        return title + rows.joined(separator: "\n")
     }
     
 }

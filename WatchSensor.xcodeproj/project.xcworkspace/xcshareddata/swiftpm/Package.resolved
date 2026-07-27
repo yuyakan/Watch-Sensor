@@ -1,15 +1,6 @@
 {
-  "originHash" : "fd9af113c8f4308aafb9976a584ac1c6e6c48630d5a1e8d9606cc61d42d0fa79",
+  "originHash" : "01be0916ed6cda8be8ad991f9ab50094062ea4da8281ff4d482e287432be313e",
   "pins" : [
-    {
-      "identity" : "charts",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/danielgindi/Charts.git",
-      "state" : {
-        "revision" : "dd9c72e3d7e751e769971092a6bd72d39198ae63",
-        "version" : "5.1.0"
-      }
-    },
     {
       "identity" : "realm-core",
       "kind" : "remoteSourceControl",
