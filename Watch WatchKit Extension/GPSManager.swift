@@ -15,21 +15,30 @@ class GPSManager: NSObject,CLLocationManagerDelegate{
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         super.init()
-        
+
         locationManager.delegate = self
-        
+
         self.locationManager.requestAlwaysAuthorization()
-        
-        if #available(iOS 9.0, *) {
-            locationManager.allowsBackgroundLocationUpdates = true
-        }
+        // allowsBackgroundLocationUpdates はここでは立てない。
+        // Always 許可が下りていない状態で true にすると実機で警告/クラッシュしうるため、
+        // 許可状態が確定してから locationManagerDidChangeAuthorization で設定する。
     }
-    
-    private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status:CLAuthorizationStatus) {
-            if (status == .notDetermined) {
-                if(self.locationManager.responds(to:#selector(CLLocationManager.requestAlwaysAuthorization))) {
-                    self.locationManager.requestAlwaysAuthorization()
-                }
+
+    /// 権限状態が変わるたびに呼ばれる正しい delegate。
+    /// （従来の `locationManager(manager:didChangeAuthorizationStatus:)` は
+    ///  シグネチャが誤っていて一度も呼ばれていなかった）
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .notDetermined:
+            manager.requestAlwaysAuthorization()
+        case .authorizedAlways:
+            // Always のときだけバックグラウンド計測を有効化する（手首を下ろしても継続）。
+            manager.allowsBackgroundLocationUpdates = true
+        case .authorizedWhenInUse, .denied, .restricted:
+            // WhenInUse / 拒否 ではバックグラウンド更新を無効に保つ（クラッシュ回避）。
+            manager.allowsBackgroundLocationUpdates = false
+        @unknown default:
+            break
         }
     }
     

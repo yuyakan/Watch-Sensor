@@ -8,3 +8,18 @@
 
 "Save completed" = "保存が完了しました";
 "saveFile" = "「ファイル」->「このiPhone内」->「EarphonesAccelerationSensor」に保存しました";
+
+/* SwiftUI 刷新で追加した UI 文言 */
+"Delete" = "削除";
+"Export CSV" = "CSVを書き出す";
+"Export failed" = "書き出しに失敗しました";
+"OK" = "OK";
+"Watch Sensor" = "Watch Sensor";
+"Acceleration" = "加速度";
+"Rotation Rate" = "角速度";
+"Gravity" = "重力";
+"Attitude" = "姿勢";
+"Motion & GPS recording" = "モーション・GPS 記録";
+"No chartable data" = "表示できるデータがありません";
+"No Measurements Yet" = "まだ計測データがありません";
+"Start a recording on your Apple Watch and save it to see your data here." = "Apple Watch で計測を開始し、保存するとここに表示されます。";

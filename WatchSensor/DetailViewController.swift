@@ -2,132 +2,152 @@
 //  DetailViewController.swift
 //  WatchSensor
 //
-//  Created by 上別縄祐也 on 2022/06/27.
+//  （旧 UIKit の詳細画面を SwiftUI 化。ファイル名は互換のため維持）
+//  Swift Charts でセンサーデータを描画し、CSV を Documents/ へエクスポートする。
 //
 
+import SwiftUI
+import Charts
 
-import UIKit
-import DGCharts
-import GoogleMobileAds
+struct SessionDetailView: View {
+    let session: SessionRecord
 
-class DetailViewController: UIViewController, UIScrollViewDelegate, GADFullScreenContentDelegate {
-    
-    private var makeChart = MakeChart()
-    private var exportFile = ExportFile()
-    
-    var fileInfo: FileInfo = FileInfo(sensorInfo: [], gpsInfo: [], directoryInfo: "")
-    
-    private let scrollHeight: CGFloat = UIScreen.main.bounds.height / 4
-    private var scrollWidth: CGFloat = 0.0
-    private let width: CGFloat = UIScreen.main.bounds.width
-    
-    let interstitialADTestUnitID = "ca-app-pub-3940256099942544/4411468910"
-    private var interstitial: GADInterstitialAd?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        let request = GADRequest()
-        GADInterstitialAd.load(withAdUnitID: "ca-app-pub-3940256099942544/4411468910", request: request,
-              completionHandler: { [self] ad, error in
-                if let error = error {
-                  print("Failed to load interstitial ad with error: \(error.localizedDescription)")
-                  return
+    @StateObject private var adManager = InterstitialAdManager()
+    @State private var showSavedAlert = false
+    @State private var exportFailed = false
+
+    private let makeChart = MakeChart()
+    private let exportFile = ExportFile()
+
+    private var chartGroups: [SensorChartGroup] {
+        makeChart.makeChartGroups(sensorInfo: session.fileInfo.sensorInfo.count > 1
+                                  ? session.fileInfo.sensorInfo[1] : "")
+    }
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: Metrics.spacing) {
+                header
+
+                if chartGroups.isEmpty {
+                    noDataCard
+                } else {
+                    ForEach(chartGroups) { group in
+                        SensorChartCard(group: group)
+                    }
                 }
-                interstitial = ad
-                interstitial?.fullScreenContentDelegate = self
-                print("sucess ad load")
-              }
-        )
-        
-        scrollWidth = firstScrollView.frame.size.width
-        ExportButtonOutlet.layer.cornerRadius = 10
-        ExportButtonOutlet.layer.shadowOpacity = 0.7
-        ExportButtonOutlet.layer.shadowRadius = 3
-        ExportButtonOutlet.layer.shadowColor = UIColor.black.cgColor
-        ExportButtonOutlet.layer.shadowOffset = CGSize(width: 0, height: 4)
-        
-        
-        firstPageControl.numberOfPages = 3
-        secondPageControl.numberOfPages = 3
-        
-        let accelCharts = [LineChartView(frame: CGRect(x: 0, y: 20, width: width * 0.98, height: scrollHeight * 0.9)),
-                           LineChartView(frame: CGRect(x: scrollWidth * 1 + 2, y: 20, width: width * 0.98, height: scrollHeight * 0.9)),
-                           LineChartView(frame: CGRect(x: scrollWidth * 2 + 2, y: 20, width: width * 0.98, height: scrollHeight * 0.9))]
-        
-        let rotationCharts = [LineChartView(frame: CGRect(x: 0, y: 20, width: width * 0.98, height: scrollHeight * 0.9)),
-                              LineChartView(frame: CGRect(x: scrollWidth * 1 + 2, y: 20, width: width * 0.98, height: scrollHeight * 0.9)),
-                              LineChartView(frame: CGRect(x: scrollWidth * 2 + 2, y: 20, width: width * 0.98, height: scrollHeight * 0.9))]
-        
-        let charts = accelCharts + rotationCharts
-        
-        let graphData = makeChart.makeGraphData(sensorInfo: fileInfo.sensorInfo[1])
-        
-        for i in 0...5 {
-            makeChart.displayChart(data: [graphData.data[0], graphData.data[i + 1]], LineChart: charts[i], label:
-                                    graphData.labels[i + 1])
+
+                exportButton
+                    .padding(.top, Metrics.spacingSmall)
+            }
+            .padding(Metrics.spacing)
         }
-        
-        makeChart.setUpCharts(Charts: accelCharts, scrollView: firstScrollView)
-        makeChart.setUpCharts(Charts: rotationCharts, scrollView: secondScrollView)
-    }
-    
-    @IBOutlet weak var ExportButtonOutlet: UIButton!
-    
-    @IBOutlet weak var firstScrollView: UIScrollView! {
-        didSet {
-            firstScrollView.delegate = self
-            firstScrollView.isPagingEnabled = true
-            firstScrollView.showsHorizontalScrollIndicator = false
+        .background(Brand.background.ignoresSafeArea())
+        .navigationTitle(session.directoryName)
+        .navigationBarTitleDisplayMode(.inline)
+        .brandDialog(
+            isPresented: $showSavedAlert,
+            imageName: "file",
+            title: "Save completed",
+            message: "saveFile"
+        ) {
+            // OK 後に、次回保存に備えてインタースティシャル広告を表示する。
+            adManager.present()
+        }
+        .alert("Export failed", isPresented: $exportFailed) {
+            Button("OK", role: .cancel) {}
+        }
+        .onAppear {
+            maybeRequestReview()
         }
     }
-    
-    @IBOutlet weak var secondScrollView: UIScrollView! {
-        didSet {
-            secondScrollView.delegate = self
-            secondScrollView.isPagingEnabled = true
-            secondScrollView.showsHorizontalScrollIndicator = false
+
+    /// グラフを見られた（＝ポジティブな体験の）詳細表示時に、控えめにレビューを依頼する。
+    /// - 表示できるグラフが無い場合は依頼しない
+    /// - 3回目、以降10回ごとの詳細表示でのみ依頼
+    private func maybeRequestReview() {
+        guard !chartGroups.isEmpty else { return }
+        guard ReviewRequester.registerDetailOpenAndShouldRequest() else { return }
+        ReviewRequester.requestReview()
+    }
+
+    private var header: some View {
+        VStack(alignment: .leading, spacing: Metrics.spacingSmall) {
+            Label(session.directoryName, systemImage: "waveform.path.ecg")
+                .font(.headline)
+                .foregroundStyle(Brand.textPrimary)
+            Text("Motion & GPS recording")
+                .font(.subheadline)
+                .foregroundStyle(Brand.textSecondary)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .brandCard()
+    }
+
+    private var noDataCard: some View {
+        VStack(spacing: Metrics.spacingSmall) {
+            Image(systemName: "chart.line.uptrend.xyaxis")
+                .font(.system(size: 32))
+                .foregroundStyle(Brand.textSecondary)
+            Text("No chartable data")
+                .font(.subheadline)
+                .foregroundStyle(Brand.textSecondary)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 32)
+        .brandCard()
+    }
+
+    private var exportButton: some View {
+        Button {
+            export()
+        } label: {
+            Label("Export CSV", systemImage: "square.and.arrow.down")
+        }
+        .buttonStyle(BrandButtonStyle())
+    }
+
+    private func export() {
+        if exportFile.exportFiles(fileInfo: session.fileInfo) {
+            showSavedAlert = true
+        } else {
+            exportFailed = true
         }
     }
-    
-    
-    @IBOutlet weak var firstPageControl: UIPageControl! {
-        didSet {
-            firstPageControl.isUserInteractionEnabled = false
-        }
-    }
-    
-    @IBOutlet weak var secondPageControl: UIPageControl! {
-        didSet {
-            secondPageControl.isUserInteractionEnabled = false
-        }
-    }
-    
-    
-    @IBAction func ExportButton(_ sender: Any) {
-        if exportFile.exportFiles(fileInfo: fileInfo) {
-            let alert = UIAlertController(title: String(localized: "Save completed"), message: String(localized: "saveFile"), preferredStyle: .alert)
-            let imageView = UIImageView(frame: CGRect(x: 10, y: 105, width: 250, height: 140))
-            let height = NSLayoutConstraint(item: alert.view!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 320)
-            alert.view.addConstraint(height)
-            imageView.image = UIImage(named: "file")
-            alert.view.addSubview(imageView)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler:  {_ in 
-                if let interstitial = self.interstitial {
-                    interstitial.present(fromRootViewController: self)
+}
+
+/// センサーカテゴリ1つ分（X/Y/Z の3系列）を1つのグラフに重ねて表示するカード。
+struct SensorChartCard: View {
+    let group: SensorChartGroup
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Metrics.spacingSmall) {
+            Text(group.title)
+                .font(.headline)
+                .foregroundStyle(Brand.textPrimary)
+
+            Chart {
+                ForEach(group.series) { series in
+                    ForEach(series.points) { point in
+                        LineMark(
+                            x: .value("Time", point.time),
+                            y: .value("Value", point.value)
+                        )
+                        .foregroundStyle(by: .value("Axis", series.label))
+                        .interpolationMethod(.catmullRom)
+                    }
                 }
-            }))
-            present(alert, animated: true)
+            }
+            .chartForegroundStyleScale(range: Brand.axisColors)
+            .chartXAxis {
+                AxisMarks(position: .bottom)
+            }
+            .chartYAxis {
+                AxisMarks(position: .leading)
+            }
+            .chartLegend(position: .top, alignment: .leading)
+            .frame(height: 200)
         }
+        .brandCard()
     }
-    
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView == firstScrollView {
-            firstPageControl.currentPage = Int(scrollView.contentOffset.x / scrollWidth)
-        } else if scrollView == secondScrollView {
-            secondPageControl.currentPage = Int(scrollView.contentOffset.x / scrollWidth)
-        }
-    }
-    
 }
