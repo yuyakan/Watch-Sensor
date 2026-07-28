@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import GoogleMobileAds
 
 @main
 struct WatchSensorApp: App {
@@ -15,8 +14,8 @@ struct WatchSensorApp: App {
         RealmStore.configure()
         // Watch からの受信を、画面表示より前に待ち受け開始する（取りこぼし防止）。
         WatchConnectivityManager.shared.start()
-        // Google Mobile Ads 初期化。
-        MobileAds.shared.start(completionHandler: nil)
+        // 広告 SDK の初期化は、同意フロー（UMP → ATT）が UIWindowScene を必要とするため
+        // ここでは行わず、View 表示後（SessionListView.onAppear）に ConsentManager 経由で行う。
 
         #if DEBUG
         let env = ProcessInfo.processInfo.environment

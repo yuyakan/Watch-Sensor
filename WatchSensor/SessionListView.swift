@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SessionListView: View {
     @StateObject private var viewModel = SessionListViewModel()
+    /// 同意フロー（UMP → ATT → 広告初期化）を一度だけ起動するためのフラグ。
+    @State private var didStartConsentFlow = false
 
     var body: some View {
         NavigationStack {
@@ -27,13 +29,21 @@ struct SessionListView: View {
             .navigationBarTitleDisplayMode(.large)
             .toolbarBackground(Brand.background, for: .navigationBar)
             .safeAreaInset(edge: .bottom) {
-                AdBannerView()
-                    .frame(height: 50)
-                    .frame(maxWidth: .infinity)
-                    .background(Brand.background)
+                if !AdsConfig.isHidden {
+                    AdBannerView()
+                        .frame(height: 50)
+                        .frame(maxWidth: .infinity)
+                        .background(Brand.background)
+                }
             }
         }
         .tint(Brand.accent)
+        .onAppear {
+            guard !didStartConsentFlow else { return }
+            didStartConsentFlow = true
+            // UI が表示されてから同意フロー→広告初期化を開始する（scene が必要なため）。
+            ConsentManager.shared.gatherConsentAndStartAds()
+        }
     }
 
     private var sessionList: some View {

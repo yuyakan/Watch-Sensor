@@ -180,42 +180,75 @@ final class RealmStore {
 #if DEBUG
     // MARK: - Debug sample data
 
-    /// シミュレータ確認用のサンプルセッションを1件投入する。
+    /// App Store 用スクリーンショットなどのために、多様なサンプルセッションを複数投入する。
     /// 既存の store() 経路を通すので本番と同じ紐付けロジックで登録される。
     /// 環境変数 SEED_SAMPLE_DATA=1 のときだけ AppDelegate から呼ばれる。
     func seedSampleDataIfNeeded() {
-        let directoryName = "Sample-2026-07-26_10-00-00"
-        // 既に投入済みなら二重登録しない。
-        if let realm = try? makeRealm(),
-           realm.objects(DirectoryInfo.self).filter("directoryName == %@", directoryName).first != nil {
-            return
-        }
+        // 波形・周波数・計測長・日付を変えた見栄えのするサンプル群。
+        // 配列の後ろほど新しい日付にして、一覧（新しい順）で自然に並ぶようにする。
+        let specs: [(name: String, freq: Double, seconds: Int, amplitude: Double, day: Int, hour: Int, minute: Int)] = [
+            ("Morning Walk",   1.5, 6,   1.0, 24, 8,  15),
+            ("Running",        3.0, 5,   1.0, 25, 18, 42),
+            ("Cycling",        2.0, 8,   1.0, 26, 7,  30),
+            ("Desk Work",      0.6, 4,   1.0, 26, 13, 5),
+            ("Evening Run",    2.6, 7,   1.0, 27, 19, 20),
+            // 長時間計測: X軸（時間）が大きく伸びるサンプル。
+            ("Long Hike",      1.2, 60,  1.0, 27, 6,  0),
+            // 激しい動き: Y軸（値）が大きく伸びるサンプル。
+            ("Sprint",         4.0, 5,   8.0, 27, 20, 55),
+        ]
 
-        // 正弦波ベースのサンプル motion CSV（13列: time + 4センサー×3軸）。
+        for (index, spec) in specs.enumerated() {
+            let directoryName = String(format: "%@ 2026-07-%02d_%02d-%02d-00",
+                                       spec.name, spec.day, spec.hour, spec.minute)
+            // 既に投入済みならスキップ（二重登録防止）。
+            if let realm = try? makeRealm(),
+               realm.objects(DirectoryInfo.self).filter("directoryName == %@", directoryName).first != nil {
+                continue
+            }
+
+            let motion = makeSampleMotionCSV(frequency: spec.freq, seconds: spec.seconds, amplitude: spec.amplitude)
+            let gps = makeSampleGpsCSV(seconds: spec.seconds, seed: index)
+
+            store(directoryName: directoryName, fileName: "Motion.csv", fileContents: motion, tag: "motion")
+            store(directoryName: directoryName, fileName: "GPS.csv", fileContents: gps, tag: "gps")
+        }
+    }
+
+    /// 100Hz・指定秒数・指定周波数の正弦波ベース motion CSV を作る。
+    /// `amplitude` で加速度・角速度の振幅を倍率調整する（激しい動きのサンプル用）。
+    /// 重力は物理的に ±1G 前後、姿勢角は現実的な範囲に留めるため倍率をかけない。
+    private func makeSampleMotionCSV(frequency: Double, seconds: Int, amplitude: Double = 1.0) -> String {
         var motion = "time, accelerationX, accelerationY, accelerationZ, rotationRateX, rotationRateY, rotationRateZ, gravityX, gravityY, gravityZ, pich, roll, yaw\n"
-        for i in 0..<120 {
-            let t = Double(i) * 0.05
-            let s = sin(t * 2)
-            let c = cos(t * 2)
+        let count = seconds * 100 // 100Hz
+        let a = amplitude
+        for i in 0..<count {
+            let t = Double(i) * 0.01
+            let s = sin(t * frequency)
+            let c = cos(t * frequency)
             let row = [t,
-                       s, c, s * 0.5,
-                       c, s, c * 0.5,
+                       a * s, a * c, a * s * 0.5,
+                       a * c, a * s, a * c * 0.5,
                        0.1 * s, -0.9 + 0.1 * c, 0.2 * s,
                        s * 0.3, c * 0.3, s * 0.1]
                 .map { String(format: "%.4f", $0) }
                 .joined(separator: ", ")
             motion += row + "\n"
         }
+        return motion
+    }
 
-        var gps = "time, latitude, longitude\n"
-        for i in 0..<20 {
-            let lat = 35.6812 + Double(i) * 0.0001
-            let lon = 139.7671 + Double(i) * 0.0001
-            gps += String(format: "10:%02d:00, %.6f, %.6f\n", i, lat, lon)
+    /// 1秒ごとに1点の GPS CSV を作る（seed で開始座標を少しずらす）。
+    private func makeSampleGpsCSV(seconds: Int, seed: Int) -> String {
+        var gps = "elapsedTime, time, latitude, longitude\n"
+        let baseLat = 35.68 + Double(seed) * 0.01
+        let baseLon = 139.76 + Double(seed) * 0.01
+        for i in 0..<seconds {
+            let lat = baseLat + Double(i) * 0.0002
+            let lon = baseLon + Double(i) * 0.0002
+            gps += String(format: "%.1f, 10:%02d:%02d, %.6f, %.6f\n", Double(i), i / 60, i % 60, lat, lon)
         }
-
-        store(directoryName: directoryName, fileName: "Motion.csv", fileContents: motion, tag: "motion")
-        store(directoryName: directoryName, fileName: "GPS.csv", fileContents: gps, tag: "gps")
+        return gps
     }
 #endif
 }

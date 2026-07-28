@@ -4,17 +4,32 @@
 //
 //  Google Mobile Ads を SwiftUI で扱うためのラッパー。
 //  バナー（一覧下部）とインタースティシャル（エクスポート後）を提供する。
-//  ※ 広告ユニット ID は従来どおりテスト ID を使用。
+//  ※ 広告ユニット ID は本番用。DEBUG ビルドのみ Google 公式テスト ID を使う。
 //
 
 import SwiftUI
 import GoogleMobileAds
 
 enum AdUnit {
-    /// テスト用バナー広告ユニット。
+#if DEBUG
+    /// テスト用バナー広告ユニット（Google 公式テスト ID）。
     static let banner = "ca-app-pub-3940256099942544/2934735716"
-    /// テスト用インタースティシャル広告ユニット。
+    /// テスト用インタースティシャル広告ユニット（Google 公式テスト ID）。
     static let interstitial = "ca-app-pub-3940256099942544/4411468910"
+#else
+    /// 本番バナー広告ユニット。
+    static let banner = "ca-app-pub-3155724310732667/8224548331"
+    /// 本番インタースティシャル広告ユニット。
+    static let interstitial = "ca-app-pub-3155724310732667/2486024548"
+#endif
+}
+
+enum AdsConfig {
+    /// App Store 用スクリーンショット撮影などで広告を一時的に隠すためのフラグ。
+    /// 環境変数 HIDE_ADS=1 のときだけ true になる（本番ビルド・通常起動には影響しない）。
+    static var isHidden: Bool {
+        ProcessInfo.processInfo.environment["HIDE_ADS"] == "1"
+    }
 }
 
 // MARK: - Banner
@@ -55,6 +70,8 @@ final class InterstitialAdManager: NSObject, ObservableObject, FullScreenContent
     }
 
     func load() {
+        // スクリーンショット撮影時などは広告を読み込まない。
+        guard !AdsConfig.isHidden else { return }
         InterstitialAd.load(with: AdUnit.interstitial, request: Request()) { [weak self] ad, error in
             guard let self else { return }
             if let error = error {
@@ -71,6 +88,8 @@ final class InterstitialAdManager: NSObject, ObservableObject, FullScreenContent
 
     /// 表示可能なら表示する。表示したら次回のために再読込予約。
     func present() {
+        // スクリーンショット撮影時などは全画面広告を出さない。
+        guard !AdsConfig.isHidden else { return }
         guard let interstitial,
               let root = Self.rootViewController() else {
             // まだ読み込めていない場合は次回に備えて取得しておく。
