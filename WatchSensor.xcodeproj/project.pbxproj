@@ -25,7 +25,7 @@
 		4B538AB0287168860026858D /* AllData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B538AAF287168860026858D /* AllData.swift */; };
 		4B538AB2287168970026858D /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B538AB1287168970026858D /* SensorData.swift */; };
 		4B538AB4287168A10026858D /* GPSData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B538AB3287168A10026858D /* GPSData.swift */; };
-		4B538AB828716A400026858D /* CreateCsv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B538AB728716A400026858D /* CreateCsv.swift */; };
+		4B538AB828716A400026858D /* createCsv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B538AB728716A400026858D /* createCsv.swift */; };
 		4B538ABA28716BBE0026858D /* GPSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B538AB928716BBE0026858D /* GPSManager.swift */; };
 		4BA39D5A287DB51700E74EE9 /* FileInfo+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA39D59287DB51700E74EE9 /* FileInfo+mock.swift */; };
 		4BA39D64287DBB0200E74EE9 /* DirectoyrInfo+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA39D63287DBB0200E74EE9 /* DirectoyrInfo+mock.swift */; };
@@ -131,7 +131,7 @@
 		4B538AAF287168860026858D /* AllData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllData.swift; sourceTree = "<group>"; };
 		4B538AB1287168970026858D /* SensorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorData.swift; sourceTree = "<group>"; };
 		4B538AB3287168A10026858D /* GPSData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSData.swift; sourceTree = "<group>"; };
-		4B538AB728716A400026858D /* CreateCsv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCsv.swift; sourceTree = "<group>"; };
+		4B538AB728716A400026858D /* createCsv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = createCsv.swift; sourceTree = "<group>"; };
 		4B538AB928716BBE0026858D /* GPSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSManager.swift; sourceTree = "<group>"; };
 		4B64FA682B165A4300613B25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4BA39D59287DB51700E74EE9 /* FileInfo+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileInfo+mock.swift"; sourceTree = "<group>"; };
@@ -397,7 +397,7 @@
 				4B538AB928716BBE0026858D /* GPSManager.swift */,
 				4B2A5D77286E86BD00D366BC /* GetSensorModel.swift */,
 				4B538AAC2871592E0026858D /* SendFileWCSession.swift */,
-				4B538AB728716A400026858D /* CreateCsv.swift */,
+				4B538AB728716A400026858D /* createCsv.swift */,
 				4B538AAE287168690026858D /* DataModel */,
 				4BB35422288654020099F305 /* MockData */,
 				4BC76F0628699A3600E53098 /* ExtensionDelegate.swift */,
@@ -729,7 +729,7 @@
 				4BB35424288654440099F305 /* CMAcceleration+mock.swift in Sources */,
 				4BC76F0528699A3600E53098 /* InterfaceController.swift in Sources */,
 				4BB35426288656A60099F305 /* CMRotationRate+mock.swift in Sources */,
-				4B538AB828716A400026858D /* CreateCsv.swift in Sources */,
+				4B538AB828716A400026858D /* createCsv.swift in Sources */,
 				4B538AB2287168970026858D /* SensorData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1120,7 +1120,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Watch;
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = Watch.ComplicationController;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Get GPS Infromation";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Get GPS Information";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Get GPS Information";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = kanbe1365.WatchSensor;
@@ -1155,7 +1155,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Watch;
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = Watch.ComplicationController;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Get GPS Infromation";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Get GPS Information";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Get GPS Information";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = kanbe1365.WatchSensor;

@@ -17,7 +17,7 @@
 		<string>location</string>
 	</array>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Get GPS Infromation</string>
+	<string>Get GPS Information</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Get GPS Information</string>
 </dict>
