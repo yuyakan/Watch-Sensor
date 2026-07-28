@@ -17,6 +17,10 @@ class SendFileWCSession: NSObject, WCSessionDelegate {
 
     /// 送信中のファイル転送と、その完了を集約するための状態。
     private var pendingTransfers: [WCSessionFileTransfer] = []
+    /// 各転送に対応する一時ファイル URL。転送完了後に削除するために保持する。
+    /// （固定の temporaryDirectory/Motion.csv 等を使い回すと、前回の転送が
+    ///   OS のキューに残っている間に次の save で上書きされ、データが化ける）
+    private var transferURLs: [ObjectIdentifier: URL] = [:]
     private var completion: ((Result<Void, Error>) -> Void)?
     private var firstError: Error?
 
@@ -54,20 +58,29 @@ class SendFileWCSession: NSObject, WCSessionDelegate {
             return
         }
 
+        // この保存専用の一意な一時ディレクトリ（directoryName は秒精度の日時なので
+        // 同一計測の2ファイルはここに、別の保存とは別ディレクトリに分離される）。
+        let stagingDir = FileManager.default.temporaryDirectory
+            .appendingPathComponent("outgoing-\(directoryName)-\(UUID().uuidString)", isDirectory: true)
+
         do {
+            try FileManager.default.createDirectory(at: stagingDir, withIntermediateDirectories: true)
             let motionTransfer = try startTransfer(csv: crateCsv.createMotionCsv(),
                                                    fileName: "Motion.csv",
                                                    tag: "motion",
-                                                   directoryName: directoryName)
+                                                   directoryName: directoryName,
+                                                   in: stagingDir)
             let gpsTransfer = try startTransfer(csv: crateCsv.createGpsCsv(),
                                                 fileName: "GPS.csv",
                                                 tag: "gps",
-                                                directoryName: directoryName)
+                                                directoryName: directoryName,
+                                                in: stagingDir)
             self.completion = completion
             self.firstError = nil
             self.pendingTransfers = [motionTransfer, gpsTransfer]
         } catch {
             // CSV 書き込み失敗などはこの場で失敗として返す。
+            try? FileManager.default.removeItem(at: stagingDir)
             completion(.failure(error))
         }
     }
@@ -84,12 +97,15 @@ class SendFileWCSession: NSObject, WCSessionDelegate {
         return fileName
     }
 
-    /// CSV を一時ファイルに書き出し、転送を開始して WCSessionFileTransfer を返す。
-    private func startTransfer(csv: String, fileName: String, tag: String, directoryName: String) throws -> WCSessionFileTransfer {
-        let url = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
+    /// CSV を専用ディレクトリ内のファイルに書き出し、転送を開始して WCSessionFileTransfer を返す。
+    /// 書き出した URL は転送完了（didFinish）まで保持し、そこで削除する。
+    private func startTransfer(csv: String, fileName: String, tag: String, directoryName: String, in stagingDir: URL) throws -> WCSessionFileTransfer {
+        let url = stagingDir.appendingPathComponent(fileName)
         let metadata = ["title": directoryName, "file": fileName, "tag": tag]
         try csv.write(to: url, atomically: true, encoding: .utf8)
-        return session.transferFile(url, metadata: metadata)
+        let transfer = session.transferFile(url, metadata: metadata)
+        transferURLs[ObjectIdentifier(transfer)] = url
+        return transfer
     }
 
     // MARK: - Transfer completion
@@ -99,6 +115,17 @@ class SendFileWCSession: NSObject, WCSessionDelegate {
         if let error = error, firstError == nil {
             firstError = error
         }
+
+        // 転送が終わった一時ファイルは削除する（OS は転送完了までファイルを保持する）。
+        // 親ディレクトリごと消して、2ファイルとも終われば空ディレクトリも残らないようにする。
+        if let url = transferURLs.removeValue(forKey: ObjectIdentifier(fileTransfer)) {
+            try? FileManager.default.removeItem(at: url)
+            let dir = url.deletingLastPathComponent()
+            if let contents = try? FileManager.default.contentsOfDirectory(atPath: dir.path), contents.isEmpty {
+                try? FileManager.default.removeItem(at: dir)
+            }
+        }
+
         pendingTransfers.removeAll { $0 === fileTransfer }
 
         guard pendingTransfers.isEmpty, let completion = self.completion else { return }

@@ -93,27 +93,33 @@ extension WatchConnectivityManager: WCSessionDelegate {
     }
 
     func session(_ session: WCSession, didReceive file: WCSessionFile) {
-        print("受け取った")
         guard
             let directoryName = file.metadata?["title"] as? String,
             let fileName = file.metadata?["file"] as? String,
             let tag = file.metadata?["tag"] as? String
         else {
-            print("received file with missing metadata")
+            print("received file with missing metadata: \(String(describing: file.metadata))")
             return
         }
         // ファイルは delegate から戻ると削除されるため、この場で読み切る。
-        let fileContents = try? String(contentsOf: file.fileURL, encoding: .utf8)
-        guard let contents = fileContents else {
-            print("failed to read received file contents")
+        let fileContents: String
+        do {
+            fileContents = try String(contentsOf: file.fileURL, encoding: .utf8)
+        } catch {
+            print("failed to read received file '\(fileName)': \(error.localizedDescription)")
             return
         }
 
         // 到着順に依存せず、directoryName を鍵に sessionID へ束ねて保存する。
-        store.store(directoryName: directoryName,
-                    fileName: fileName,
-                    fileContents: contents,
-                    tag: tag)
+        let saved = store.store(directoryName: directoryName,
+                                fileName: fileName,
+                                fileContents: fileContents,
+                                tag: tag)
+        guard saved else {
+            // 保存に失敗した場合は一覧を更新しない（Watch 側は成功表示だが取り込めていない状態）。
+            print("failed to store received file '\(fileName)' (dir: \(directoryName), tag: \(tag))")
+            return
+        }
 
         DispatchQueue.main.async {
             self.lastReceivedAt = Date()
